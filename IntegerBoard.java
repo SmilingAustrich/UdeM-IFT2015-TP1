@@ -1,9 +1,9 @@
 public class IntegerBoard implements GameBoard<Integer>{
     private final int width; // Nombre de colonne
     private final int height; // Nombre de ligne
-    private final int[][] matrix; // Matrice qui représente la grille du sudoku
+    private int[][] matrix; // Matrice qui représente la grille du sudoku
 
-    public IntegerBoard(int [][] initGrid){
+    public IntegerBoard(Integer [][] initGrid){
         this.width = initGrid.length;
         this.height = initGrid[0].length;
         this.matrix = new int[height][width]; // Initialisation de la matrice qui va prendre
@@ -12,7 +12,7 @@ public class IntegerBoard implements GameBoard<Integer>{
         // Remplissage de la grille de sudoku
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                this.matrix[i][j] = initGrid[i][j]; // Copie la valeur de inputMatrix[i][j]
+                this.matrix[i][j] = (initGrid[i][j] != null) ? initGrid[i][j] : 0;
             }
         }
     }
@@ -55,4 +55,5 @@ public class IntegerBoard implements GameBoard<Integer>{
             System.out.println();
         }
     }
+
 }
