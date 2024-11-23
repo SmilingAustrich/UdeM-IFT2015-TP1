@@ -1,52 +1,50 @@
 package com.udem.ift2015.interfaces;
 
 /**
- * interface for grid-oriented game boards storing generic type values
+ * Interface pour des plateaux de jeux orientés grille stockant des valeurs de type générique.
  *
- * @author      Francois Major (for TP1-IFT2015-A24)
- *              
+ * @author      Francois Major (pour TP1-IFT2015-A24)
  * @version     1.0
- * @since       1.0 (25 October 2024)
+ * @since       1.0 (25 octobre 2024)
  */
-
 public interface GameBoard<T> {
-    
+
     /**
-     * Retrieves the value at the specified position.
+     * Récupère la valeur à la position spécifiée.
      *
-     * @param x the column index (0-based)
-     * @param y the row index (0-based)
-     * @return the value at the specified position
-     * @throws IndexOutOfBoundsException if the position is out of bounds
+     * @param x l'index de la colonne (commence à 0)
+     * @param y l'index de la rangée (commence à 0)
+     * @return la valeur à la position spécifiée
+     * @throws IndexOutOfBoundsException si la position est hors limites
      */
-    T getCell( int x, int y ) throws IndexOutOfBoundsException;
-    
+    T getCell(int x, int y) throws IndexOutOfBoundsException;
+
     /**
-     * Sets the value at the specified position.
+     * Définit la valeur à la position spécifiée.
      *
-     * @param x the column index (0-based)
-     * @param y the row index (0-based)
-     * @param value the value to set
-     * @throws IndexOutOfBoundsException if the position is out of bounds
+     * @param x l'index de la colonne (commence à 0)
+     * @param y l'index de la rangée (commence à 0)
+     * @param value la valeur à définir
+     * @throws IndexOutOfBoundsException si la position est hors limites
      */
-    void setCell( int x, int y, T value ) throws IndexOutOfBoundsException;
-    
+    void setCell(int x, int y, T value) throws IndexOutOfBoundsException;
+
     /**
-     * Returns the width of the game board.
+     * Retourne la largeur du plateau de jeu.
      *
-     * @return the number of columns
+     * @return le nombre de colonnes
      */
     int getWidth();
-    
+
     /**
-     * Returns the height of the game board.
+     * Retourne la hauteur du plateau de jeu.
      *
-     * @return the number of rows
+     * @return le nombre de rangées
      */
     int getHeight();
-    
+
     /**
-     * Displays the game board.
+     * Affiche le plateau de jeu.
      */
     void display();
 }

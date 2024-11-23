@@ -1,29 +1,25 @@
 package com.udem.ift2015.interfaces;
 
 /**
- * interface for game solvers (player)
+ * Interface pour les solveurs de jeu (joueur).
  *
- * @author      Francois Major (for TP1-IFT2015-A24)
- *              
+ * @author      Francois Major (pour TP1-IFT2015-A24)
  * @version     1.0
- * @since       1.0 (25 October 2024)
+ * @since       1.0 (25 octobre 2024)
  */
-
 public interface GameSolver {
 
     /**
-     * Solves the given game state.
+     * Résout l'état actuel du jeu.
      *
-     * @param game the current game state
-     * @return the solution, such as the next move or a winning strategy
+     * @return vrai si une solution a été trouvée, faux sinon
      */
     boolean solve();
 
     /**
-     * Provides a description of the solution.
+     * Fournit une description de la solution.
      *
-     * @param solution the solution obtained from the solve method
-     * @return a human-readable explanation of the solution
+     * Affiche une explication compréhensible de la solution.
      */
     void printSolution();
 }

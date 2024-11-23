@@ -3,16 +3,21 @@ package com.udem.ift2015.interfaces;
 import java.lang.IllegalStateException;
 
 /**
- * Position is an interface for the Position ADT
+ * Interface pour l'ADT Position.
  *
- * Based on Goodrich, Tamassia, Goldwasser
+ * Basé sur Goodrich, Tamassia, Goldwasser.
  *
  * @author      Francois Major
  * @version     1.0
  * @since       1.0
-*/
-
+ */
 public interface Position<E> {
-    // return the corresponding element (stored at this Position)    
+
+    /**
+     * Retourne l'élément correspondant (stocké à cette Position).
+     *
+     * @return l'élément stocké à cette Position
+     * @throws IllegalStateException si la Position n'est plus valide
+     */
     E getElement() throws IllegalStateException;
 }

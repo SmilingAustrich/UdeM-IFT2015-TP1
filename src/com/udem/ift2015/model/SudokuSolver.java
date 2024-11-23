@@ -1,6 +1,10 @@
 package com.udem.ift2015.model;
 
 import com.udem.ift2015.interfaces.GameSolver;
+import com.udem.ift2015.interfaces.GameBoard;
+import com.udem.ift2015.interfaces.Tree;
+
+
 
 public class SudokuSolver implements GameSolver {
     private IntegerBoard board;
