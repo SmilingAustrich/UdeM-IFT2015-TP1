@@ -4,8 +4,6 @@ import com.udem.ift2015.interfaces.GameSolver;
 import com.udem.ift2015.interfaces.GameBoard;
 import com.udem.ift2015.interfaces.Tree;
 
-
-
 public class SudokuSolver implements GameSolver {
     private IntegerBoard board;
     private IntegerBoard solution;
@@ -14,6 +12,9 @@ public class SudokuSolver implements GameSolver {
     // Constructeur qui prend un GameBoard et initialise les autres attributs
     public SudokuSolver(GameBoard<Integer> board) {
         this.board = (IntegerBoard) board;
+        if (!isValidDimension(this.board)) {
+            throw new IllegalArgumentException("La dimension de la grille de Sudoku est illégale. La grille doit être carrée avec une racine carrée entière.");
+        }
         this.solution = null;
         this.solutionTree = new LinkedGeneralTree<>();
         this.solutionTree.setRoot(this.board); // Initialise la racine de l'arbre comme étant la grille initiale
@@ -29,21 +30,21 @@ public class SudokuSolver implements GameSolver {
             System.out.println("Sudoku résolu :");
             solution.display();
         } else {
-            System.out.println("Aucune solution n'a été trouvé");
+            System.out.println("Aucune solution n'a été trouvée");
         }
     }
 
-    private boolean isValidPlacement (int row, int col, Integer value) {
+    private boolean isValidPlacement(int row, int col, Integer value) {
         // Vérification des lignes
-        for (int i = 0; i < board.getWidth(); i++ ) {
-            if (board.getCell(row,i).equals(value)){
+        for (int i = 0; i < board.getWidth(); i++) {
+            if (board.getCell(row, i).equals(value)){
                 return false;
             }
         }
 
         // Vérification des colonnes
         for (int i = 0; i < board.getHeight(); i++) {
-            if (board.getCell(i,col).equals(value)){
+            if (board.getCell(i, col).equals(value)){
                 return false;
             }
         }
@@ -54,30 +55,29 @@ public class SudokuSolver implements GameSolver {
         // cette sous-grille, on doit savoir on est à quel ligne et quelle colonne, sachant qu'on est dans une grille
         // 4*4, on sera dans la 3ème ligne (index = 2) et 1ère colonne (index = 0), donc le calcul sera la suivante :
         // (2/2) * 2 = 2, (0/2) * 2 = 0.
-        int sousGrilleLigne = (row/sousGrilleTaille) * sousGrilleTaille;
-        int sousGrilleColonne = (col/sousGrilleTaille) * sousGrilleTaille;
+        int sousGrilleLigne = (row / sousGrilleTaille) * sousGrilleTaille;
+        int sousGrilleColonne = (col / sousGrilleTaille) * sousGrilleTaille;
 
         for (int i = sousGrilleLigne; i < sousGrilleLigne + sousGrilleTaille; i++) {
             for (int j = sousGrilleColonne; j < sousGrilleColonne + sousGrilleTaille; j++){
-                if (board.getCell(i,j).equals(value)){
+                if (board.getCell(i, j).equals(value)){
                     return false;
                 }
             }
         }
         return true;
-
     }
 
-    private boolean solveBoard(){
+    private boolean solveBoard() {
         // Vérifier les cellules vides dans la grille
-        for (int row = 0; row < board.getWidth(); row++){
-            for (int col = 0; col < board.getHeight(); col++){
-                if (board.getCell(row,col).equals(0)){  // Présence de cellule vide
-                    for (int chiffre = 1; chiffre <= board.getWidth(); chiffre++){
-                        if (isValidPlacement(row,col,chiffre)){
-                            board.setCell(row,col,chiffre); // Si le placement est valide, le chiffre sera intégré
-                                                            // la cellule.
-                            solutionTree.addChild(this.board,board); // Sauvegarde l'état dans l'arbre
+        for (int row = 0; row < board.getWidth(); row++) {
+            for (int col = 0; col < board.getHeight(); col++) {
+                if (board.getCell(row, col).equals(0)) {  // Présence de cellule vide
+                    for (int chiffre = 1; chiffre <= board.getWidth(); chiffre++) {
+                        if (isValidPlacement(row, col, chiffre)) {
+                            board.setCell(row, col, chiffre); // Si le placement est valide, le chiffre sera intégré
+                            // la cellule.
+                            solutionTree.addChild(this.board, board); // Sauvegarde l'état dans l'arbre
                             if (solveBoard()) {
                                 solution = board;
                                 return true;
@@ -85,14 +85,20 @@ public class SudokuSolver implements GameSolver {
                             // Concept de backtracking, si une cellule ne présente aucune solution, on retourne dans la
                             // dernière cellule vide (qui a une solution) afin de l'initialiser à 0 pour explorer
                             // d'autres possibilités.
-                            board.setCell(row,col,0);
+                            board.setCell(row, col, 0);
                         }
                     }
                     return false; // Si aucune solution n'est trouvée, retourne faux
                 }
             }
         }
-        return true; // Si aucune cellule vide n'est trouvé, la grille est n'est donc pas vide
+        return true; // Si aucune cellule vide n'est trouvée, la grille est donc complète
+    }
+
+    private boolean isValidDimension(IntegerBoard board) {
+        int width = board.getWidth();
+        int height = board.getHeight();
+        int sqrt = (int) Math.sqrt(width);
+        return width == height && sqrt * sqrt == width;
     }
 }
-

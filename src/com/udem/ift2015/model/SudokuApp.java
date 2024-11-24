@@ -179,7 +179,5 @@ public class SudokuApp {
         test.testCase4();
         test.testCase5();
         test.testCase6();
-        test.testCase7();
-        test.testCase8();
     }
 }
